@@ -6,7 +6,7 @@ const AboutSection: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="animate-slide-in-left">
-            <img src="\images\aboutus.jpg" alt="Our Team" className="rounded-2xl shadow-xl w-full" />
+            <img src="public\images\aboutus.jpg" alt="Our Team" className="rounded-2xl shadow-xl w-full" />
           </div>
           <div className="animate-fade-in-up">
             <h2 className="text-4xl font-bold text-dark-blue mb-6">Our Mission</h2>
