@@ -27,7 +27,7 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
       <div className="mt-12 relative flex justify-center animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-        <img src="public\images\docnur.jpg" alt="Telemedicine Dashboard" className="rounded-2xl shadow-2xl max-w-4xl w-full object-cover h-64 md:h-auto" />
+        <img src="\public\images\aboutus.jpg" alt="Telemedicine Dashboard" className="rounded-2xl shadow-2xl max-w-4xl w-full object-cover h-64 md:h-auto" />
       </div>
     </section>
   );
