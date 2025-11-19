@@ -21,18 +21,6 @@ export default defineConfig(({ mode }) => {
       },
       build: {
         chunkSizeWarningLimit: 1000,
-        rollupOptions: {
-          output: {
-            manualChunks(id) {
-              if (id.includes('node_modules')) {
-                if (id.includes('/react/') || id.includes('react-dom')) {
-                  return 'react-vendor';
-                }
-                return 'vendor';
-              }
-            },
-          },
-        },
       }
     };
 });
