@@ -1,0 +1,5 @@
+{
+  "name": "Drepto",
+  "description": "A modern telemedicine application with a clean, attractive, and minimalistic UI/UX, featuring role-based access for patients, doctors, and nurses, and dedicated dashboards for each role.",
+  "requestFramePermissions": []
+}
