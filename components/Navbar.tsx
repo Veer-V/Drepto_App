@@ -181,8 +181,18 @@ const Navbar: React.FC<NavbarProps> = ({ sectionRefs }) => {
               }}
               className="bg-primary text-white px-8 py-3 rounded-full font-bold text-xl shadow-lg"
             >
-              Sign Up
+              
             </button>
+            {/* SIGN UP BUTTON */}
+    <button
+        onClick={() => {
+            navigate('/auth');
+            setIsMobileMenuOpen(false);
+        }}
+        className="bg-primary text-white px-8 py-3 rounded-full font-bold text-xl shadow-lg hover:opacity-90 transition"
+    >
+        Sign Up
+    </button>
           </div>
         </div>
       )}
