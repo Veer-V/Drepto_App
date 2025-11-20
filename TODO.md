@@ -1,6 +1,13 @@
-# TODO: Fix createContext Error
+# TODO: Build Android and iOS Apps with Capacitor
 
-- [ ] Update package.json to downgrade React to ^18.3.1 and react-router-dom to ^6.28.0
-- [ ] Run npm install to install updated dependencies
-- [ ] Run npm run dev to verify the error is resolved
-- [ ] If error persists, investigate further (e.g., check for other incompatible libraries)
+- [ ] Install Capacitor CLI globally and add core packages to project
+- [ ] Initialize Capacitor in the project with app ID and name
+- [ ] Add Android platform to the project
+- [ ] Add iOS platform to the project
+- [ ] Update vite.config.ts to include Capacitor configuration
+- [ ] Update package.json with Capacitor build and sync scripts
+- [ ] Build the web app using Vite
+- [ ] Sync web assets to Android and iOS platforms
+- [ ] Open Android project in Android Studio for building and testing
+- [ ] Open iOS project in Xcode for building and testing
+- [ ] Test apps on emulators/simulators to ensure they match the web version
