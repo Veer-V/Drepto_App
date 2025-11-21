@@ -2,11 +2,13 @@
 export default {
   content: [
     './index.html',
-    './components/**/*.{js,jsx,ts,tsx}',
-    './pages/**/*.{js,jsx,ts,tsx}',
-    './components/admin/**/*.{js,jsx}',
+
+    './index.tsx',
     './App.tsx',
-    './index.tsx'
+    './components/**/*.{ts,tsx}',
+    './pages/**/*.{ts,tsx}',
+    './hooks/**/*.{ts,tsx}',
+    './lib/**/*.{ts,tsx}'
   ],
   theme: {
     extend: {

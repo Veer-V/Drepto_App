@@ -1,7 +1,9 @@
 
+
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import BackButton from '../components/BackButton';
 import { CITIES, LAB_TESTS_DATA, LAB_PACKAGES_DATA, LAB_REVIEWS } from '../constants';
 import { LabTestDetail, LabPackageDetail } from '../types';
 import { loadLabTests } from '../components/admin/LabTestData';
@@ -9,7 +11,7 @@ import { loadLabTests } from '../components/admin/LabTestData';
 // --- Sub-Components to maintain cleaner code within the file ---
 
 const HeaderIcon = ({ d }: { d: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={d}/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={d} /></svg>
 );
 
 // 1. City Selector Overlay
@@ -22,8 +24,8 @@ const CitySelector: React.FC<{ current: string; onSelect: (id: string) => void; 
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {CITIES.map(city => (
-                    <button 
-                        key={city.id} 
+                    <button
+                        key={city.id}
                         onClick={() => { onSelect(city.id); onClose(); }}
                         className={`py-2 px-3 rounded-lg text-sm font-medium border transition-all ${current === city.id ? 'border-teal-500 bg-teal-50 text-teal-700' : 'border-gray-200 text-gray-600 hover:border-teal-300'}`}
                     >
@@ -40,7 +42,7 @@ const Sidebar: React.FC<{ active: string; onSelect: (view: string) => void }> = 
     <div className="hidden lg:block w-64 bg-white rounded-xl border border-gray-200 shadow-sm p-4 h-fit sticky top-24 mt-20">
         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 px-2">Browse Labs</h3>
         <div className="space-y-1">
-            {[{id: 'tests', label: 'Individual Tests'}, {id: 'packages', label: 'Health Packages'}, {id: 'cities', label: 'Top Cities'}].map(item => (
+            {[{ id: 'tests', label: 'Individual Tests' }, { id: 'packages', label: 'Health Packages' }, { id: 'cities', label: 'Top Cities' }].map(item => (
                 <button
                     key={item.id}
                     onClick={() => onSelect(item.id)}
@@ -61,16 +63,16 @@ const DetailView: React.FC<{ item: LabTestDetail | LabPackageDetail; type: 'test
             <button onClick={onBack} className="mb-4 text-sm text-teal-600 font-bold hover:underline flex items-center gap-1">
                 <HeaderIcon d="m15 18-6-6 6-6" /> Back to {isTest ? 'Tests' : 'Packages'}
             </button>
-            
+
             {/* Hero */}
             <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm mb-6 mt-10">
                 <div className="flex flex-col md:flex-row justify-between gap-6">
                     <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                             <h1 className="text-2xl font-bold text-gray-900">{item.name}</h1>
-                             <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">
-                                 {item.rating} <span className="text-[10px]">★</span>
-                             </span>
+                            <h1 className="text-2xl font-bold text-gray-900">{item.name}</h1>
+                            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">
+                                {item.rating} <span className="text-[10px]">★</span>
+                            </span>
                         </div>
                         <p className="text-gray-500 text-sm mb-4">{item.description}</p>
                         <div className="flex items-center gap-2 mb-2">
@@ -81,8 +83,8 @@ const DetailView: React.FC<{ item: LabTestDetail | LabPackageDetail; type: 'test
                         <p className="text-xs text-gray-400">Inclusive of all taxes</p>
                     </div>
                     <div className="flex flex-col justify-end min-w-[200px]">
-                         <button className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all shadow-lg shadow-teal-200 mb-2">Book Now</button>
-                         {!isTest && <p className="text-xs text-center text-gray-500">Ideal for: {(item as LabPackageDetail).idealFor}</p>}
+                        <button className="w-full py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all shadow-lg shadow-teal-200 mb-2">Book Now</button>
+                        {!isTest && <p className="text-xs text-center text-gray-500">Ideal for: {(item as LabPackageDetail).idealFor}</p>}
                     </div>
                 </div>
             </div>
@@ -93,16 +95,16 @@ const DetailView: React.FC<{ item: LabTestDetail | LabPackageDetail; type: 'test
                     <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
                         <h3 className="font-bold text-gray-900 mb-4">Quick Facts</h3>
                         <div className="grid grid-cols-2 gap-4">
-                             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                                 <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><HeaderIcon d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></div>
-                                 <div><p className="text-xs text-gray-500 uppercase font-bold">Report In</p><p className="text-sm font-semibold">{item.reportTime}</p></div>
-                             </div>
-                             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                                 <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center"><HeaderIcon d="M22 12h-4l-3 9L9 3l-3 9H2" /></div>
-                                 <div><p className="text-xs text-gray-500 uppercase font-bold">Fasting</p><p className="text-sm font-semibold">{item.fasting}</p></div>
-                             </div>
-                             {isTest && (
-                                 <>
+                            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                                <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><HeaderIcon d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></div>
+                                <div><p className="text-xs text-gray-500 uppercase font-bold">Report In</p><p className="text-sm font-semibold">{item.reportTime}</p></div>
+                            </div>
+                            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                                <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center"><HeaderIcon d="M22 12h-4l-3 9L9 3l-3 9H2" /></div>
+                                <div><p className="text-xs text-gray-500 uppercase font-bold">Fasting</p><p className="text-sm font-semibold">{item.fasting}</p></div>
+                            </div>
+                            {isTest && (
+                                <>
                                     <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                                         <div className="w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center"><HeaderIcon d="m19.07 10.93-1.41 1.41M2 6c.6.5 1.2 1 2.5 1s2.5-.5 2.5-1 .6-1 2.5-1 2.5.5 2.5 1 .6 1 2.5 1 2.5-.5 2.5-1 .6-1 2.5-1 2.5.5 2.5 1" /></div>
                                         <div><p className="text-xs text-gray-500 uppercase font-bold">Sample</p><p className="text-sm font-semibold">{(item as LabTestDetail).sampleType}</p></div>
@@ -111,23 +113,23 @@ const DetailView: React.FC<{ item: LabTestDetail | LabPackageDetail; type: 'test
                                         <div className="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center"><HeaderIcon d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z" /></div>
                                         <div><p className="text-xs text-gray-500 uppercase font-bold">Tube</p><p className="text-sm font-semibold">{(item as LabTestDetail).tubeType}</p></div>
                                     </div>
-                                 </>
-                             )}
+                                </>
+                            )}
                         </div>
                     </div>
 
                     {/* Included Tests */}
                     <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-                         <h3 className="font-bold text-gray-900 mb-4">
-                             {isTest ? `Test Parameters (${(item as LabTestDetail).parameters.length})` : `Tests Included (${(item as LabPackageDetail).testsIncluded.length})`}
-                         </h3>
-                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                             {(isTest ? (item as LabTestDetail).parameters : (item as LabPackageDetail).testsIncluded).map((p, i) => (
-                                 <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                                     <div className="w-1.5 h-1.5 rounded-full bg-teal-500"></div> {p}
-                                 </li>
-                             ))}
-                         </ul>
+                        <h3 className="font-bold text-gray-900 mb-4">
+                            {isTest ? `Test Parameters (${(item as LabTestDetail).parameters.length})` : `Tests Included (${(item as LabPackageDetail).testsIncluded.length})`}
+                        </h3>
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            {(isTest ? (item as LabTestDetail).parameters : (item as LabPackageDetail).testsIncluded).map((p, i) => (
+                                <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-teal-500"></div> {p}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
 
                     {/* Why it matters */}
@@ -139,7 +141,7 @@ const DetailView: React.FC<{ item: LabTestDetail | LabPackageDetail; type: 'test
                     )}
 
                     {/* Reviews */}
-                     <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+                    <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
                         <h3 className="font-bold text-gray-900 mb-4">Patient Reviews</h3>
                         <div className="space-y-4">
                             {LAB_REVIEWS.slice(0, 2).map(rev => (
@@ -153,27 +155,27 @@ const DetailView: React.FC<{ item: LabTestDetail | LabPackageDetail; type: 'test
                                 </div>
                             ))}
                         </div>
-                     </div>
+                    </div>
                 </div>
 
                 {/* How it works sidebar */}
                 <div className="lg:col-span-1">
                     <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100 sticky top-24">
-                         <h3 className="font-bold text-gray-900 mb-4">How It Works</h3>
-                         <div className="space-y-6">
-                             <div className="flex gap-4">
-                                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-blue-600 shadow-sm flex-shrink-0">1</div>
-                                 <div><h4 className="font-bold text-sm text-gray-800">Book Test</h4><p className="text-xs text-gray-500">Select your test and schedule a slot.</p></div>
-                             </div>
-                             <div className="flex gap-4">
-                                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-blue-600 shadow-sm flex-shrink-0">2</div>
-                                 <div><h4 className="font-bold text-sm text-gray-800">Sample Collection</h4><p className="text-xs text-gray-500">Phlebotomist visits your home for collection.</p></div>
-                             </div>
-                             <div className="flex gap-4">
-                                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-blue-600 shadow-sm flex-shrink-0">3</div>
-                                 <div><h4 className="font-bold text-sm text-gray-800">Get Report</h4><p className="text-xs text-gray-500">Receive digital report within 24 hours.</p></div>
-                             </div>
-                         </div>
+                        <h3 className="font-bold text-gray-900 mb-4">How It Works</h3>
+                        <div className="space-y-6">
+                            <div className="flex gap-4">
+                                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-blue-600 shadow-sm flex-shrink-0">1</div>
+                                <div><h4 className="font-bold text-sm text-gray-800">Book Test</h4><p className="text-xs text-gray-500">Select your test and schedule a slot.</p></div>
+                            </div>
+                            <div className="flex gap-4">
+                                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-blue-600 shadow-sm flex-shrink-0">2</div>
+                                <div><h4 className="font-bold text-sm text-gray-800">Sample Collection</h4><p className="text-xs text-gray-500">Phlebotomist visits your home for collection.</p></div>
+                            </div>
+                            <div className="flex gap-4">
+                                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-blue-600 shadow-sm flex-shrink-0">3</div>
+                                <div><h4 className="font-bold text-sm text-gray-800">Get Report</h4><p className="text-xs text-gray-500">Receive digital report within 24 hours.</p></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -200,7 +202,7 @@ const LabTestsPage: React.FC = () => {
         setSelectedItem(item);
         setDetailType(type);
         setView('detail');
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
     };
 
     // Load lab tests from localStorage, fallback to constants
@@ -226,48 +228,52 @@ const LabTestsPage: React.FC = () => {
     return (
         <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
             {showCitySelector && <CitySelector current={selectedCity} onSelect={setSelectedCity} onClose={() => setShowCitySelector(false)} />}
-            
+
             <Navbar sectionRefs={dummyRefs as any} />
 
             {/* Sub-Header / Module Nav */}
             <div className="bg-white border-b border-gray-200 sticky top-16 z-30">
                 <div className="container mx-auto px-4 lg:px-8">
-                     <div className="flex flex-col md:flex-row md:items-center justify-between py-3 gap-4">
-                         {/* Tabs */}
-                         {/* <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between py-3 gap-4">
+                        {/* Tabs */}
+                        {/* <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide">
                              {['Medicine', 'Lab Tests', 'Health Blogs', 'PLUS', 'Value Store'].map((tab, i) => (
                                  <button key={tab} className={`whitespace-nowrap text-sm font-bold pb-1 border-b-2 transition-colors ${i === 1 ? 'text-teal-600 border-teal-600' : 'text-gray-500 border-transparent hover:text-gray-800'}`}>
                                      {tab}
                                  </button>
                              ))}
                          </div> */}
-                         {/* City Selector Pill */}
-                         <button onClick={() => setShowCitySelector(true)} className="flex items-center gap-2 bg-[#E7EEF8] px-4 py-2 rounded-full text-sm font-bold text-blue-700 hover:bg-blue-100 transition-colors self-start md:self-auto">
-                             <span>Delivering to: {cityName}</span>
-                             <HeaderIcon d="m6 9 6 6 6-6" />
-                         </button>
-                     </div>
+                        {/* City Selector Pill */}
+                        <button onClick={() => setShowCitySelector(true)} className="flex items-center gap-2 bg-[#E7EEF8] px-4 py-2 rounded-full text-sm font-bold text-blue-700 hover:bg-blue-100 transition-colors self-start md:self-auto">
+                            <span>Delivering to: {cityName}</span>
+                            <HeaderIcon d="m6 9 6 6 6-6" />
+                        </button>
+                    </div>
                 </div>
             </div>
 
+
             <main className="flex-grow container mx-auto px-4 lg:px-8 py-6">
+                <div className="mb-4">
+                    <BackButton />
+                </div>
                 <div className="flex flex-col lg:flex-row gap-8">
-                    
+
                     {/* Sidebar Navigation - Hidden on Detail View to give more space */}
                     {view !== 'detail' && (
-                        <Sidebar 
-                            active={view === 'home' ? 'tests' : view === 'individual' ? 'tests' : view === 'packages' ? 'packages' : 'cities'} 
+                        <Sidebar
+                            active={view === 'home' ? 'tests' : view === 'individual' ? 'tests' : view === 'packages' ? 'packages' : 'cities'}
                             onSelect={(v) => {
                                 if (v === 'tests') setView('individual');
                                 else if (v === 'packages') setView('packages');
-                                else setView('home'); 
-                            }} 
+                                else setView('home');
+                            }}
                         />
                     )}
 
                     {/* Main Content Area */}
                     <div className="flex-1">
-                        
+
                         {/* HOME / INDIVIDUAL TESTS LISTING */}
                         {(view === 'home' || view === 'individual') && (
                             <div className="animate-fade-in-up">
@@ -278,13 +284,14 @@ const LabTestsPage: React.FC = () => {
 
                                 {/* Category Grid */}
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 mb-8">
-                                    {tests.map(test => (
-                                         <div key={test.id + '_cat'} onClick={() => handleViewDetail(test, 'test')} className="bg-white p-4 rounded-xl border border-gray-100 hover:shadow-md cursor-pointer transition-all text-center group">
-                                             <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                                                 <HeaderIcon d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                                             </div>
-                                             <h4 className="font-bold text-sm text-gray-800 group-hover:text-blue-600">{test.category}</h4>
-                                         </div>
+
+                                    {LAB_TESTS_DATA.map(test => (
+                                        <div key={test.id + '_cat'} onClick={() => handleViewDetail(test, 'test')} className="bg-white p-4 rounded-xl border border-gray-100 hover:shadow-md cursor-pointer transition-all text-center group">
+                                            <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                                                <HeaderIcon d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                            </div>
+                                            <h4 className="font-bold text-sm text-gray-800 group-hover:text-blue-600">{test.category}</h4>
+                                        </div>
                                     ))}
                                 </div>
 
@@ -328,8 +335,8 @@ const LabTestsPage: React.FC = () => {
                                             <div className="p-5 flex-1 cursor-pointer" onClick={() => handleViewDetail(pkg, 'package')}>
                                                 <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-teal-600 line-clamp-2 min-h-[3.5rem]">{pkg.name}</h3>
                                                 <div className="flex items-center gap-2 mb-4">
-                                                     <span className="text-xs font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">{pkg.testCount} Tests</span>
-                                                     <span className="text-xs font-bold bg-orange-50 text-orange-600 px-2 py-1 rounded">Includes {pkg.testsIncluded[0]}</span>
+                                                    <span className="text-xs font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">{pkg.testCount} Tests</span>
+                                                    <span className="text-xs font-bold bg-orange-50 text-orange-600 px-2 py-1 rounded">Includes {pkg.testsIncluded[0]}</span>
                                                 </div>
                                                 <p className="text-xs text-gray-500 mb-2">Ideal for: {pkg.idealFor}</p>
                                                 <p className="text-xs text-gray-500">Fasting: {pkg.fasting}</p>

@@ -1,7 +1,9 @@
 
+
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { UserRole } from '../types';
+import BackButton from './BackButton';
 
 interface RegisterProps {
   onToggleView: () => void;
@@ -48,6 +50,9 @@ const Register: React.FC<RegisterProps> = ({ onToggleView }) => {
 
   return (
     <div>
+      <div className="mb-4">
+        <BackButton />
+      </div>
       <h2 className="text-2xl font-bold text-center text-dark-blue mb-6">Create Account</h2>
       <form onSubmit={handleSubmit} className="space-y-3">
         <div className="grid grid-cols-2 gap-3">
@@ -65,12 +70,12 @@ const Register: React.FC<RegisterProps> = ({ onToggleView }) => {
           </select>
           <input type="number" name="age" placeholder="Age" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary" />
         </div>
-         <select name="role" value={formData.role} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary">
-            {Object.values(UserRole).map(r => <option key={r} value={r}>{`Register as ${r}`}</option>)}
-          </select>
+        <select name="role" value={formData.role} onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary">
+          {Object.values(UserRole).map(r => <option key={r} value={r}>{`Register as ${r}`}</option>)}
+        </select>
         <input type="password" name="password" placeholder="Password" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary" />
         <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary" />
-        
+
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button type="submit" className="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition-colors">

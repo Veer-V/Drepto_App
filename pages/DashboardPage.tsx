@@ -6,6 +6,7 @@ import PatientDashboard from '../components/dashboards/PatientDashboard';
 import DoctorDashboard from '../components/dashboards/DoctorDashboard';
 import NurseDashboard from '../components/dashboards/NurseDashboard';
 import AIAssistant from '../components/AIAssistant';
+import BackButton from '../components/BackButton';
 
 const DashboardPage: React.FC = () => {
   const { user, logout } = useAuth();
@@ -32,11 +33,14 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 relative">
-       <header className="bg-white shadow-sm">
-         <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">
-            <span className="text-primary">Drepto</span> Dashboard
-          </h1>
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <BackButton />
+            <h1 className="text-2xl font-bold text-gray-900">
+              <span className="text-primary">Drepto</span> Dashboard
+            </h1>
+          </div>
           <button
             onClick={logout}
             className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors"

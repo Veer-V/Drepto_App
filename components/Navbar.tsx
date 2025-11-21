@@ -68,7 +68,8 @@ const Navbar: React.FC<NavbarProps> = ({ sectionRefs }) => {
             onClick={() => navigate('/')}
           >
             <img
-              src="../images/logo.png"
+
+              src="/images/logo.png"
               alt="Drepto Biodevices Logo"
               className="h-12 w-auto object-contain"
             />
