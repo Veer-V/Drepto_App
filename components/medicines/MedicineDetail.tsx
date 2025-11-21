@@ -1,126 +1,6 @@
 import React, { useState } from 'react';
 
-// --- [ START OF MOCK DATA AND TYPES ] ---
-
-export interface ProductFAQ {
-  question: string;
-  answer: string;
-}
-
-export interface Precaution {
-  title: string;
-  advice: string;
-}
-
-export interface Dosage {
-  overdose: string;
-  missedDose: string;
-}
-
-export interface Medicine {
-  id: string;
-  name: string;
-  brand: string;
-  packSize: string;
-  imageUrl: string;
-  images?: string[];
-  mrp: number;
-  price: number;
-  description: string;
-  contains: string;
-  uses: string[];
-  sideEffects: string[];
-  therapy: string;
-  contraindications: string[];
-  precautions: Precaution[];
-  howToUse: string;
-  storage: string;
-  quickTips: string[];
-  dosage: Dosage;
-  modeOfAction: string;
-  interactions: string;
-  productFaqs: ProductFAQ[];
-}
-
-export const MOCK_MEDICINE: Medicine = {
-  id: 'PARA-650',
-  name: 'Paracetamol 650mg Tablet',
-  brand: 'HealthCo Pharma',
-  packSize: 'Strip of 15 tablets',
-  imageUrl:
-    'https://via.placeholder.com/300x200/58c9b9/ffffff?text=Paracetamol+650mg',
-  images: [
-    'https://via.placeholder.com/64/58c9b9/ffffff?text=Front',
-    'https://via.placeholder.com/64/58c9b9/ffffff?text=Back',
-    'https://via.placeholder.com/64/58c9b9/ffffff?text=Strip',
-  ],
-  mrp: 35.0,
-  price: 29.75,
-  description:
-    'Paracetamol 650mg Tablet is a medicine used to relieve pain and to reduce fever. It is used to treat many conditions such as headache, body ache, toothache, and common cold.',
-  contains: 'Paracetamol (Acetaminophen) 650mg',
-  uses: [
-    'Fever',
-    'Pain relief (e.g., headache, muscle ache, dental pain)',
-    'Common cold',
-  ],
-  sideEffects: ['Stomach pain', 'Nausea', 'Vomiting', 'Allergic reaction (rare)'],
-  therapy: 'Analgesic & Antipyretic',
-  contraindications: [
-    'Severe liver impairment',
-    'Known allergy to Paracetamol',
-    'Severe kidney impairment',
-  ],
-  precautions: [
-    {
-      title: 'Alcohol Warning',
-      advice:
-        'Avoid consuming alcohol while taking this medicine as it may increase the risk of liver damage.',
-    },
-    {
-      title: 'Pregnancy',
-      advice:
-        'It is generally considered safe to use during pregnancy. Consult your doctor before use.',
-    },
-    {
-      title: 'Breastfeeding',
-      advice:
-        'Safe to use during breastfeeding. Limited data suggests the drug poses no significant risk to the baby.',
-    },
-  ],
-  howToUse:
-    'Take this medicine in the dose and duration as advised by your doctor. Swallow it as a whole. Do not chew, crush or break it. Paracetamol 650mg Tablet may be taken with or without food.',
-  storage: 'Store below 30°C in a cool and dry place. Keep out of reach of children.',
-  quickTips: [
-    'Do not exceed the recommended dose as it can be harmful to your liver.',
-    'It provides fast relief but the effect lasts for a limited time.',
-    'Consult your doctor if fever or pain persists for more than 3 days.',
-  ],
-  dosage: {
-    overdose:
-      'Seek emergency medical attention if you suspect an overdose. Symptoms can include nausea, vomiting, loss of appetite, and stomach pain.',
-    missedDose:
-      'If you miss a dose, take it as soon as you remember. However, do not take two doses at the same time to make up for a missed dose.',
-  },
-  modeOfAction:
-    'It blocks the release of certain chemical messengers that cause pain and fever in the brain.',
-  interactions:
-    'This medicine can interact with certain blood thinners (like warfarin) and other medications. Always inform your doctor about all other medicines you are taking.',
-  productFaqs: [
-    {
-      question: 'Is Paracetamol an antibiotic?',
-      answer:
-        'No, Paracetamol is an analgesic (pain reliever) and antipyretic (fever reducer). It is not an antibiotic and does not treat bacterial infections.',
-    },
-    {
-      question: 'Can I take it for a cough?',
-      answer:
-        'It will help with fever and body aches associated with a cold or cough, but it does not directly treat the cough itself.',
-    },
-  ],
-};
-
-// --- [ END MOCK DATA ] ---
+import { Medicine, ProductFAQ, Precaution, Dosage } from '../../types';
 
 interface MedicineDetailProps {
   medicine: Medicine;
@@ -181,17 +61,15 @@ const ProductFAQSection: React.FC<{ faqs: ProductFAQ[] }> = ({ faqs }) => {
             >
               <span className="text-base">{faq.question}</span>
               <ChevronDownIcon
-                className={`w-5 h-5 text-teal-600 transition-transform duration-300 ${
-                  openIndex === index ? 'rotate-180' : ''
-                }`}
+                className={`w-5 h-5 text-teal-600 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''
+                  }`}
               />
             </button>
             <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                openIndex === index
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index
                   ? 'max-h-96 opacity-100'
                   : 'max-h-0 opacity-0'
-              }`}
+                }`}
             >
               <div className="p-4 pt-0 border-t border-gray-100">
                 <p className="text-gray-600 text-sm leading-relaxed">
@@ -245,7 +123,7 @@ const MedicineDetail: React.FC<MedicineDetailProps> = ({
 
       setAdded(true);
       setTimeout(() => setAdded(false), 1500);
-    } catch {}
+    } catch { }
   };
 
   return (
@@ -423,9 +301,4 @@ const MedicineDetail: React.FC<MedicineDetailProps> = ({
 };
 
 // Example usage
-const App = () => {
-  const handleBack = () => alert('Navigating back to the main list!');
-  return <MedicineDetail medicine={MOCK_MEDICINE} onBack={handleBack} />;
-};
-
-export default App;
+export default MedicineDetail;

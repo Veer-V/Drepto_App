@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import BackButton from '../components/BackButton';
 import { CITIES, LAB_TESTS_DATA, LAB_PACKAGES_DATA, LAB_REVIEWS } from '../constants';
 import { LabTestDetail, LabPackageDetail } from '../types';
+import { loadLabTests } from '../components/admin/LabTestData';
 
 // --- Sub-Components to maintain cleaner code within the file ---
 
@@ -190,6 +191,7 @@ const LabTestsPage: React.FC = () => {
     const [view, setView] = useState<'home' | 'individual' | 'packages' | 'detail'>('home');
     const [selectedItem, setSelectedItem] = useState<LabTestDetail | LabPackageDetail | null>(null);
     const [detailType, setDetailType] = useState<'test' | 'package'>('test');
+    const [tests, setTests] = useState<LabTestDetail[]>([]);
 
     // Dummy Refs for Navbar
     const dummyRefs = { home: { current: null }, product: { current: null }, about: { current: null }, contact: { current: null } };
@@ -202,6 +204,26 @@ const LabTestsPage: React.FC = () => {
         setView('detail');
         window.scrollTo(0, 0);
     };
+
+    // Load lab tests from localStorage, fallback to constants
+    useEffect(() => {
+        const load = () => {
+            try {
+                const items = loadLabTests();
+                setTests(items && items.length ? items as LabTestDetail[] : LAB_TESTS_DATA as LabTestDetail[]);
+            } catch {
+                setTests(LAB_TESTS_DATA as LabTestDetail[]);
+            }
+        };
+        load();
+        const onUpdate = () => load();
+        window.addEventListener('labtests:updated', onUpdate);
+        window.addEventListener('storage', onUpdate as any);
+        return () => {
+            window.removeEventListener('labtests:updated', onUpdate);
+            window.removeEventListener('storage', onUpdate as any);
+        };
+    }, []);
 
     return (
         <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
@@ -262,6 +284,7 @@ const LabTestsPage: React.FC = () => {
 
                                 {/* Category Grid */}
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 mb-8">
+
                                     {LAB_TESTS_DATA.map(test => (
                                         <div key={test.id + '_cat'} onClick={() => handleViewDetail(test, 'test')} className="bg-white p-4 rounded-xl border border-gray-100 hover:shadow-md cursor-pointer transition-all text-center group">
                                             <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
@@ -274,7 +297,7 @@ const LabTestsPage: React.FC = () => {
 
                                 <h2 className="text-xl font-bold text-gray-900 mb-4">Top Tests</h2>
                                 <div className="space-y-4">
-                                    {LAB_TESTS_DATA.map(test => (
+                                    {tests.map(test => (
                                         <div key={test.id} className="bg-white p-5 rounded-2xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col md:flex-row justify-between gap-4">
                                             <div className="flex-1 cursor-pointer" onClick={() => handleViewDetail(test, 'test')}>
                                                 <h3 className="text-lg font-bold text-gray-900 mb-1 hover:text-teal-600">{test.name}</h3>

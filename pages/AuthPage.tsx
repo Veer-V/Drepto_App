@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import Login from '../components/Login';
 import Register from '../components/Register';
+import { useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 
 const AuthPage: React.FC = () => {
   const [isLoginView, setIsLoginView] = useState(true);
+  const navigate = useNavigate();
 
   const toggleView = () => setIsLoginView(!isLoginView);
 
@@ -43,9 +45,20 @@ const AuthPage: React.FC = () => {
             <Register onToggleView={toggleView} />
           )}
         </div>
+
+        {/* Admin Login Shortcut */}
+        <div className="mt-4 text-center">
+          <button
+            onClick={() => navigate('/admin/login')}
+            className="text-sm text-primary font-semibold hover:underline"
+          >
+            Admin Login
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default AuthPage;
+

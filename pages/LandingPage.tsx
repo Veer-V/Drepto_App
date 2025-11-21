@@ -6,6 +6,7 @@ import ProductSection from '../components/ProductSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
+import MobileHome from '../components/mobile/MobileHome';
 
 const LandingPage: React.FC = () => {
   const homeRef = useRef<HTMLDivElement>(null);
@@ -20,16 +21,28 @@ const LandingPage: React.FC = () => {
     contact: contactRef,
   };
 
+  // ...
+
   return (
     <div className="relative">
       <Navbar sectionRefs={sectionRefs} />
-      <main>
+
+      {/* Mobile View */}
+      <div className="md:hidden pt-16">
+        <MobileHome />
+      </div>
+
+      {/* Desktop View */}
+      <main className="hidden md:block">
         <div ref={homeRef}><HeroSection /></div>
         <div ref={productRef}><ProductSection /></div>
         <div ref={aboutRef}><AboutSection /></div>
         <div ref={contactRef}><ContactSection /></div>
       </main>
-      <Footer />
+
+      <div className="hidden md:block">
+        <Footer />
+      </div>
     </div>
   );
 };
