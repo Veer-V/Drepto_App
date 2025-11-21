@@ -35,7 +35,6 @@ const Login: React.FC<LoginProps> = ({ onToggleView }) => {
       <form onSubmit={handleSubmit} className="space-y-5 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">I am a</label>
-<<<<<<< HEAD
           <div className="relative">
             <select
               value={role}
@@ -48,16 +47,6 @@ const Login: React.FC<LoginProps> = ({ onToggleView }) => {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
             </div>
           </div>
-=======
-
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value as UserRole)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary"
-          >
-            {Object.values(UserRole).map(r => <option key={r} value={r}>{r}</option>)}
-          </select>
->>>>>>> 3c162091e037531c75d486dac11e053549a6903c
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Email or Phone</label>
