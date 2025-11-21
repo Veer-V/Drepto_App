@@ -240,16 +240,14 @@ const LabTestsPage: React.FC = () => {
         <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
             {showCitySelector && <CitySelector current={selectedCity} onSelect={setSelectedCity} onClose={() => setShowCitySelector(false)} />}
 
-<<<<<<< HEAD
+
             <div className="md:hidden">
                 <MobileHeader title="Lab Tests" showBack={true} onBack={handleMobileBack} />
             </div>
             <div className="hidden md:block">
                 <Navbar sectionRefs={dummyRefs as any} />
             </div>
-=======
             <Navbar sectionRefs={dummyRefs as any} />
->>>>>>> 3c162091e037531c75d486dac11e053549a6903c
 
             {/* Sub-Header / Module Nav */}
             <div className="bg-white border-b border-gray-200 sticky top-16 z-30">
@@ -304,20 +302,16 @@ const LabTestsPage: React.FC = () => {
 
                                 {/* Category Grid */}
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 mb-8">
-<<<<<<< HEAD
                                     {tests.map(test => (
-=======
-
-                                    {LAB_TESTS_DATA.map(test => (
->>>>>>> 3c162091e037531c75d486dac11e053549a6903c
                                         <div key={test.id + '_cat'} onClick={() => handleViewDetail(test, 'test')} className="bg-white p-4 rounded-xl border border-gray-100 hover:shadow-md cursor-pointer transition-all text-center group">
                                             <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                                                 <HeaderIcon d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                                             </div>
                                             <h4 className="font-bold text-sm text-gray-800 group-hover:text-blue-600">{test.category}</h4>
                                         </div>
-                                    ))}
-                                </div>
+                                    ))
+                                    }
+                                </div >
 
                                 <h2 className="text-xl font-bold text-gray-900 mb-4">Top Tests</h2>
                                 <div className="space-y-4">
@@ -342,52 +336,56 @@ const LabTestsPage: React.FC = () => {
                                         </div>
                                     ))}
                                 </div>
-                            </div>
+                            </div >
                         )}
 
                         {/* PACKAGES LISTING */}
-                        {view === 'packages' && (
-                            <div className="animate-fade-in-up">
-                                <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white mb-8 shadow-lg mt-20">
-                                    <h1 className="text-2xl md:text-3xl font-bold mb-2">Full Body Checkups in {cityName}</h1>
-                                    <p className="opacity-90">Save up to 70% on health packages with free home collection.</p>
-                                </div>
+                        {
+                            view === 'packages' && (
+                                <div className="animate-fade-in-up">
+                                    <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white mb-8 shadow-lg mt-20">
+                                        <h1 className="text-2xl md:text-3xl font-bold mb-2">Full Body Checkups in {cityName}</h1>
+                                        <p className="opacity-90">Save up to 70% on health packages with free home collection.</p>
+                                    </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                                    {LAB_PACKAGES_DATA.map(pkg => (
-                                        <div key={pkg.id} className="bg-white rounded-2xl border border-gray-200 hover:shadow-xl transition-all flex flex-col overflow-hidden group">
-                                            <div className="p-5 flex-1 cursor-pointer" onClick={() => handleViewDetail(pkg, 'package')}>
-                                                <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-teal-600 line-clamp-2 min-h-[3.5rem]">{pkg.name}</h3>
-                                                <div className="flex items-center gap-2 mb-4">
-                                                    <span className="text-xs font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">{pkg.testCount} Tests</span>
-                                                    <span className="text-xs font-bold bg-orange-50 text-orange-600 px-2 py-1 rounded">Includes {pkg.testsIncluded[0]}</span>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                                        {LAB_PACKAGES_DATA.map(pkg => (
+                                            <div key={pkg.id} className="bg-white rounded-2xl border border-gray-200 hover:shadow-xl transition-all flex flex-col overflow-hidden group">
+                                                <div className="p-5 flex-1 cursor-pointer" onClick={() => handleViewDetail(pkg, 'package')}>
+                                                    <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-teal-600 line-clamp-2 min-h-[3.5rem]">{pkg.name}</h3>
+                                                    <div className="flex items-center gap-2 mb-4">
+                                                        <span className="text-xs font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">{pkg.testCount} Tests</span>
+                                                        <span className="text-xs font-bold bg-orange-50 text-orange-600 px-2 py-1 rounded">Includes {pkg.testsIncluded[0]}</span>
+                                                    </div>
+                                                    <p className="text-xs text-gray-500 mb-2">Ideal for: {pkg.idealFor}</p>
+                                                    <p className="text-xs text-gray-500">Fasting: {pkg.fasting}</p>
                                                 </div>
-                                                <p className="text-xs text-gray-500 mb-2">Ideal for: {pkg.idealFor}</p>
-                                                <p className="text-xs text-gray-500">Fasting: {pkg.fasting}</p>
-                                            </div>
-                                            <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
-                                                <div>
-                                                    <p className="text-lg font-bold text-gray-900">₹{pkg.price}</p>
-                                                    <p className="text-xs text-green-600 font-bold">{pkg.discount} OFF</p>
+                                                <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+                                                    <div>
+                                                        <p className="text-lg font-bold text-gray-900">₹{pkg.price}</p>
+                                                        <p className="text-xs text-green-600 font-bold">{pkg.discount} OFF</p>
+                                                    </div>
+                                                    <button className="px-4 py-2 bg-teal-600 text-white text-xs font-bold rounded-lg hover:bg-teal-700">Book</button>
                                                 </div>
-                                                <button className="px-4 py-2 bg-teal-600 text-white text-xs font-bold rounded-lg hover:bg-teal-700">Book</button>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )
+                        }
 
                         {/* DETAIL VIEW */}
-                        {view === 'detail' && selectedItem && (
-                            <DetailView item={selectedItem} type={detailType} onBack={() => setView(detailType === 'test' ? 'individual' : 'packages')} />
-                        )}
+                        {
+                            view === 'detail' && selectedItem && (
+                                <DetailView item={selectedItem} type={detailType} onBack={() => setView(detailType === 'test' ? 'individual' : 'packages')} />
+                            )
+                        }
 
-                    </div>
-                </div>
-            </main>
+                    </div >
+                </div >
+            </main >
             <Footer />
-        </div>
+        </div >
     );
 };
 
