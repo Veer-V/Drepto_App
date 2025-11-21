@@ -178,8 +178,98 @@ const Medicines: React.FC<MedicinesProps> = ({ onViewDetails }) => {
 
   return (
     <div className="bg-white">
-      {/* Pharmacy Hero Section */}
-      <section className="bg-[#0f3460] relative overflow-hidden pt-24 pb-32">
+      {/* Mobile Layout (Visible only on mobile) */}
+      <div className="md:hidden px-4 pt-4 pb-4 space-y-5 bg-white">
+
+        {/* 0. Header Banner */}
+        <div className="bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl p-4 text-white shadow-lg mb-2">
+          <h2 className="text-lg font-bold mb-1">Welcome to Pharmacy</h2>
+          <p className="text-xs opacity-90">Your one-stop shop for all medicines & health products.</p>
+        </div>
+
+        {/* 1. Service Icons (Compact) */}
+        <div className="grid grid-cols-3 gap-2">
+          <div className="bg-blue-50 p-2 rounded-lg flex flex-col items-center justify-center text-center h-16 shadow-sm">
+            <img src="https://cdn-icons-png.flaticon.com/512/2331/2331966.png" alt="COD" className="h-5 w-5 mb-1" />
+            <span className="text-[10px] font-bold text-blue-800 leading-tight">Cash on<br />Delivery</span>
+          </div>
+          <div className="bg-green-50 p-2 rounded-lg flex flex-col items-center justify-center text-center h-16 shadow-sm">
+            <img src="https://cdn-icons-png.flaticon.com/512/2979/2979684.png" alt="Express" className="h-5 w-5 mb-1" />
+            <span className="text-[10px] font-bold text-green-800 leading-tight">Express<br />Delivery</span>
+          </div>
+          <div className="bg-purple-50 p-2 rounded-lg flex flex-col items-center justify-center text-center h-16 shadow-sm">
+            <img src="https://cdn-icons-png.flaticon.com/512/1584/1584808.png" alt="Returns" className="h-5 w-5 mb-1" />
+            <span className="text-[10px] font-bold text-purple-800 leading-tight">Easy<br />Returns</span>
+          </div>
+        </div>
+
+        {/* 2. Quick Actions (Compact) */}
+        <div>
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Quick Actions</p>
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide justify-center items-center">
+            <button onClick={handleWhatsApp} className="flex-shrink-0 flex items-center gap-1.5 bg-emerald-50 border border-emerald-100 px-2.5 py-2 rounded-lg shadow-sm">
+              <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp" className="h-4 w-4" />
+              <span className="text-xs font-bold text-emerald-700">WhatsApp</span>
+            </button>
+            <button onClick={handleUploadClick} className="flex-shrink-0 flex items-center gap-1.5 bg-blue-50 border border-blue-100 px-2.5 py-2 rounded-lg shadow-sm">
+              <img src="https://cdn-icons-png.flaticon.com/512/2301/2301134.png" alt="Upload" className="h-4 w-4" />
+              <span className="text-xs font-bold text-blue-700">Upload Rx</span>
+            </button>
+            <button onClick={handleCall} className="flex-shrink-0 flex items-center gap-1.5 bg-orange-50 border border-orange-100 px-2.5 py-2 rounded-lg shadow-sm">
+              <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Call" className="h-4 w-4" />
+              <span className="text-xs font-bold text-orange-700">Call Now</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 3. Offers Slider (Compact) */}
+        <div>
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Exclusive Offers</p>
+          <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-1 scrollbar-hide">
+            <div className="min-w-[200px] snap-start bg-gradient-to-r from-pink-500 to-rose-500 p-3 rounded-xl text-white relative overflow-hidden shadow-md">
+              <div className="relative z-10">
+                <p className="text-[10px] font-bold opacity-90 mb-0.5">NEW USER</p>
+                <p className="text-sm font-extrabold mb-1">Flat 25% OFF</p>
+                <div className="flex items-center justify-between">
+                  <code className="bg-white/20 px-2 py-1 rounded text-[10px] font-mono">FIRST25</code>
+                  <button onClick={() => copyOffer('FIRST25')} className="text-[10px] bg-white text-pink-600 px-2 py-1 rounded font-bold shadow-sm">Copy</button>
+                </div>
+              </div>
+              <div className="absolute right-0 bottom-0 opacity-20 transform translate-x-1/4 translate-y-1/4">
+                <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+              </div>
+            </div>
+            <div className="min-w-[200px] snap-start bg-gradient-to-r from-violet-500 to-purple-500 p-3 rounded-xl text-white relative overflow-hidden shadow-md">
+              <div className="relative z-10">
+                <p className="text-[10px] font-bold opacity-90 mb-0.5">HEALTH</p>
+                <p className="text-sm font-extrabold mb-1">15% OFF + Cashback</p>
+                <div className="flex items-center justify-between">
+                  <code className="bg-white/20 px-2 py-1 rounded text-[10px] font-mono">HEALTH15</code>
+                  <button onClick={() => copyOffer('HEALTH15')} className="text-[10px] bg-white text-violet-600 px-2 py-1 rounded font-bold shadow-sm">Copy</button>
+                </div>
+              </div>
+              <div className="absolute right-0 bottom-0 opacity-20 transform translate-x-1/4 translate-y-1/4">
+                <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. Search Bar */}
+        <div className="relative">
+          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => { setQuery(e.target.value); setPage(1); }}
+            placeholder="Search medicines..."
+            className="w-full pl-10 pr-4 py-3 bg-gray-100 border-none rounded-xl text-sm focus:ring-2 focus:ring-teal-500 shadow-inner"
+          />
+        </div>
+      </div>
+
+      {/* Desktop Hero Section (Hidden on Mobile) */}
+      <section className="hidden md:block bg-[#0f3460] relative overflow-hidden pt-24 pb-32">
         {/* Abstract Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -202,8 +292,8 @@ const Medicines: React.FC<MedicinesProps> = ({ onViewDetails }) => {
         </div>
       </section>
 
-      {/* Search, Order & Offers Section */}
-      <section className="bg-gray-50 pb-16">
+      {/* Desktop Search, Order & Offers Section (Hidden on Mobile) */}
+      <section className="hidden md:block bg-gray-50 pb-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20">
           <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
             <div className="flex flex-col md:flex-row items-center gap-4 mb-8">
@@ -242,25 +332,27 @@ const Medicines: React.FC<MedicinesProps> = ({ onViewDetails }) => {
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Product Grid Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <h2 className="text-2xl font-extrabold text-gray-900 mb-4 md:mb-0">Popular Medicines</h2>
-            <div className="flex flex-wrap gap-2">
+      {/* Product Grid Section (Visible on both Mobile and Desktop) */}
+      <section className="bg-gray-50 pb-16 pt-4 md:pt-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8">
+            <h2 className="text-lg md:text-2xl font-extrabold text-gray-900 mb-4 md:mb-0 self-start md:self-auto">Popular Medicines</h2>
+            <div className="flex flex-wrap gap-2 self-start md:self-auto">
               <FilterDropdown label="Category" />
               <FilterDropdown label="Brand" />
               <FilterDropdown label="Sort By" />
             </div>
           </div>
 
-          <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {visible.map((product) => (
               <ProductCard key={product.id} product={product} onViewDetails={onViewDetails} onAdd={addToCart} />
             ))}
           </div>
 
-          <div className="mt-12">
+          <div className="mt-8 md:mt-12">
             <Pagination
               currentPage={page}
               totalPages={totalPages}
@@ -269,8 +361,8 @@ const Medicines: React.FC<MedicinesProps> = ({ onViewDetails }) => {
           </div>
         </div>
 
-        {/* Testimonials */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+        {/* Testimonials (Desktop only for now to save space on mobile, or can be enabled) */}
+        <div className="hidden md:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold text-gray-900">What Our Customers Say</h2>
             <p className="text-gray-500 mt-2">Trusted by thousands of happy customers</p>

@@ -4,16 +4,25 @@ import { useNavigate, useLocation } from 'react-router-dom';
 interface MobileHeaderProps {
     title: string;
     showBack?: boolean;
+    onBack?: () => void;
 }
 
-const MobileHeader: React.FC<MobileHeaderProps> = ({ title, showBack = true }) => {
+const MobileHeader: React.FC<MobileHeaderProps> = ({ title, showBack = true, onBack }) => {
     const navigate = useNavigate();
+
+    const handleBack = () => {
+        if (onBack) {
+            onBack();
+        } else {
+            navigate(-1);
+        }
+    };
 
     return (
         <div className="bg-white shadow-sm px-4 py-3 flex items-center sticky top-0 z-50">
             {showBack && (
                 <button
-                    onClick={() => navigate(-1)}
+                    onClick={handleBack}
                     className="mr-3 p-2 -ml-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
                 >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

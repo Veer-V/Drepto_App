@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MobileHeader from './MobileHeader';
 
 const nurses = [
@@ -7,6 +8,7 @@ const nurses = [
 ];
 
 const MobileNurses: React.FC = () => {
+    const navigate = useNavigate();
     const [showForm, setShowForm] = useState(false);
     const [selectedNurse, setSelectedNurse] = useState<string | null>(null);
 
@@ -15,9 +17,17 @@ const MobileNurses: React.FC = () => {
         setShowForm(true);
     };
 
+    const handleBack = () => {
+        if (showForm) {
+            setShowForm(false);
+        } else {
+            navigate(-1);
+        }
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 pb-20">
-            <MobileHeader title="Nursing Services" />
+            <MobileHeader title="Nursing Services" onBack={handleBack} />
 
             {!showForm ? (
                 <div className="p-4 space-y-4">

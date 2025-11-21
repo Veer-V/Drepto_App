@@ -78,6 +78,17 @@ const MedicineCRUD = () => {
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setForm(prev => ({ ...prev, imageUrl: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const parseFormToModel = () => {
     const id = editingId || `med-${Date.now()}`;
     return {
@@ -179,28 +190,69 @@ const MedicineCRUD = () => {
           <h3 className="font-semibold mb-2">{editingId ? 'Edit Medicine' : 'New Medicine'}</h3>
           {error && <div className="text-red-600 text-sm">{error}</div>}
           <div className="grid grid-cols-2 gap-3">
-            <input required name="name" value={form.name} onChange={handleChange} placeholder="Name" className="border rounded p-2 col-span-2" />
-            <input required name="brand" value={form.brand} onChange={handleChange} placeholder="Brand" className="border rounded p-2" />
-            <input required name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price" className="border rounded p-2" />
-            <input required name="mrp" type="number" value={form.mrp} onChange={handleChange} placeholder="MRP" className="border rounded p-2" />
-            <input required name="packSize" value={form.packSize} onChange={handleChange} placeholder="Pack size" className="border rounded p-2" />
-            <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="Image URL" className="border rounded p-2" />
-            <textarea name="images" value={form.images} onChange={handleChange} placeholder="More image URLs, comma separated" className="border rounded p-2 col-span-2 h-20" />
-            <textarea required name="description" value={form.description} onChange={handleChange} placeholder="Description" className="border rounded p-2 col-span-2 h-20" />
-            <input required name="contains" value={form.contains} onChange={handleChange} placeholder="Contains" className="border rounded p-2 col-span-2" />
-            <input required name="therapy" value={form.therapy} onChange={handleChange} placeholder="Therapy" className="border rounded p-2 col-span-2" />
-            <textarea required name="uses" value={form.uses} onChange={handleChange} placeholder="Uses (one per line)" className="border rounded p-2 col-span-2 h-24" />
-            <textarea required name="sideEffects" value={form.sideEffects} onChange={handleChange} placeholder="Side effects (one per line)" className="border rounded p-2 col-span-2 h-24" />
-            <textarea required name="contraindications" value={form.contraindications} onChange={handleChange} placeholder="Contraindications (one per line)" className="border rounded p-2 col-span-2 h-24" />
-            <textarea required name="precautions" value={form.precautions} onChange={handleChange} placeholder="Precautions (Format: Title: Advice per line)" className="border rounded p-2 col-span-2 h-24" />
-            <textarea required name="howToUse" value={form.howToUse} onChange={handleChange} placeholder="How to use" className="border rounded p-2 col-span-2 h-20" />
-            <textarea required name="storage" value={form.storage} onChange={handleChange} placeholder="Storage" className="border rounded p-2 col-span-2 h-20" />
-            <textarea required name="quickTips" value={form.quickTips} onChange={handleChange} placeholder="Quick tips (one per line)" className="border rounded p-2 col-span-2 h-24" />
-            <textarea required name="overdose" value={form.overdose} onChange={handleChange} placeholder="Overdose" className="border rounded p-2 col-span-2 h-20" />
-            <textarea required name="missedDose" value={form.missedDose} onChange={handleChange} placeholder="Missed dose" className="border rounded p-2 col-span-2 h-20" />
-            <textarea required name="modeOfAction" value={form.modeOfAction} onChange={handleChange} placeholder="Mode of action" className="border rounded p-2 col-span-2 h-20" />
-            <textarea required name="interactions" value={form.interactions} onChange={handleChange} placeholder="Interactions" className="border rounded p-2 col-span-2 h-20" />
-            <textarea required name="faqs" value={form.faqs} onChange={handleChange} placeholder="FAQs (Format: Question | Answer per line)" className="border rounded p-2 col-span-2 h-24" />
+            <div className="col-span-2">
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Basic Info</label>
+              <input required name="name" value={form.name} onChange={handleChange} placeholder="Medicine Name" className="w-full border rounded p-2 mb-2" />
+              <input required name="brand" value={form.brand} onChange={handleChange} placeholder="Brand / Manufacturer" className="w-full border rounded p-2" />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Pricing</label>
+              <input required name="mrp" type="number" value={form.mrp} onChange={handleChange} placeholder="MRP (Original Price)" className="w-full border rounded p-2 mb-2" />
+              <input required name="price" type="number" value={form.price} onChange={handleChange} placeholder="Selling Price (Discounted)" className="w-full border rounded p-2" />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Details</label>
+              <input required name="packSize" value={form.packSize} onChange={handleChange} placeholder="Pack Size (e.g. 10 Tablets)" className="w-full border rounded p-2 mb-2" />
+              <input required name="contains" value={form.contains} onChange={handleChange} placeholder="Salt Composition" className="w-full border rounded p-2" />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Product Image</label>
+              <div className="flex items-center gap-4 border rounded p-2 bg-gray-50">
+                {form.imageUrl && <img src={form.imageUrl} alt="Preview" className="h-16 w-16 object-contain bg-white rounded border" />}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                />
+              </div>
+              <input type="hidden" name="imageUrl" value={form.imageUrl} />
+            </div>
+
+            <textarea name="images" value={form.images} onChange={handleChange} placeholder="Additional Image URLs (comma separated)" className="border rounded p-2 col-span-2 h-20" />
+
+            <div className="col-span-2">
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1 mt-2">Description & Usage</label>
+              <textarea required name="description" value={form.description} onChange={handleChange} placeholder="Full Description" className="w-full border rounded p-2 h-24 mb-2" />
+              <input required name="therapy" value={form.therapy} onChange={handleChange} placeholder="Therapy Class" className="w-full border rounded p-2 mb-2" />
+              <textarea required name="uses" value={form.uses} onChange={handleChange} placeholder="Uses (one per line)" className="w-full border rounded p-2 h-24" />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1 mt-2">Safety Advice</label>
+              <textarea required name="sideEffects" value={form.sideEffects} onChange={handleChange} placeholder="Side Effects (one per line)" className="w-full border rounded p-2 h-24 mb-2" />
+              <textarea required name="contraindications" value={form.contraindications} onChange={handleChange} placeholder="Contraindications (one per line)" className="w-full border rounded p-2 h-24 mb-2" />
+              <textarea required name="precautions" value={form.precautions} onChange={handleChange} placeholder="Precautions (Format: Title: Advice per line)" className="w-full border rounded p-2 h-24" />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1 mt-2">Instructions</label>
+              <textarea required name="howToUse" value={form.howToUse} onChange={handleChange} placeholder="How to Use" className="w-full border rounded p-2 h-20 mb-2" />
+              <textarea required name="storage" value={form.storage} onChange={handleChange} placeholder="Storage Instructions" className="w-full border rounded p-2 h-20" />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1 mt-2">Additional Info</label>
+              <textarea required name="quickTips" value={form.quickTips} onChange={handleChange} placeholder="Quick Tips (one per line)" className="w-full border rounded p-2 h-24 mb-2" />
+              <textarea required name="overdose" value={form.overdose} onChange={handleChange} placeholder="Overdose Instructions" className="w-full border rounded p-2 h-20 mb-2" />
+              <textarea required name="missedDose" value={form.missedDose} onChange={handleChange} placeholder="Missed Dose Instructions" className="w-full border rounded p-2 h-20 mb-2" />
+              <textarea required name="modeOfAction" value={form.modeOfAction} onChange={handleChange} placeholder="Mode of Action" className="w-full border rounded p-2 h-20 mb-2" />
+              <textarea required name="interactions" value={form.interactions} onChange={handleChange} placeholder="Drug Interactions" className="w-full border rounded p-2 h-20 mb-2" />
+              <textarea required name="faqs" value={form.faqs} onChange={handleChange} placeholder="FAQs (Format: Question | Answer per line)" className="w-full border rounded p-2 h-24" />
+            </div>
           </div>
           <div className="flex gap-3">
             <button onClick={save} className="bg-primary text-white px-4 py-2 rounded">Save</button>

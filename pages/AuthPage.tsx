@@ -20,6 +20,19 @@ const AuthPage: React.FC = () => {
 
 
       <div className="w-full max-w-md relative z-10">
+<<<<<<< HEAD
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute top-0 left-0 -ml-4 -mt-4 p-2 text-gray-500 hover:text-primary transition-colors flex items-center gap-1"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+          <span className="text-sm font-medium">Back</span>
+        </button>
+        <div className="text-center mb-8 animate-fade-in-up flex flex-col items-center">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="relative h-16 w-16 flex items-center justify-center bg-white rounded-xl shadow-sm p-1">
+              <img src="/images/logo.png" alt="Drepto Logo" className="w-full h-full object-contain" />
+=======
         <div className="mb-4">
           <BackButton className="text-white hover:text-white/80" />
         </div>
@@ -29,6 +42,7 @@ const AuthPage: React.FC = () => {
               <svg className="w-full h-full text-primary" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20 4V36M4 20H36" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
               </svg>
+>>>>>>> 3c162091e037531c75d486dac11e053549a6903c
             </div>
             <div className="flex flex-col items-start">
               <span className="text-4xl font-bold text-primary tracking-tighter leading-none">Drepto</span>
@@ -61,4 +75,3 @@ const AuthPage: React.FC = () => {
 };
 
 export default AuthPage;
-
