@@ -1,36 +1,55 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import AdminLayout from './AdminLayout';
 import MedicineCRUD from './MedicineCRUD';
 import LabTestCRUD from './LabTestCRUD';
-import { ADMIN_AUTH_KEY } from './adminData';
+import DashboardStats from './DashboardStats';
+import ActivityFeed from './ActivityFeed';
+import ProjectManager from './ProjectManager';
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
   const [tab, setTab] = useState('medicines');
 
-  const logout = () => {
-    localStorage.removeItem(ADMIN_AUTH_KEY);
-    navigate('/admin/login');
+  const getTitle = () => {
+    switch (tab) {
+      case 'dashboard': return 'Dashboard Overview';
+      case 'medicines': return 'Medicine Management';
+      case 'labtests': return 'Lab Test Management';
+      case 'projects': return 'Project Management';
+      default: return 'Admin Dashboard';
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-primary">Admin Dashboard</h1>
-          <div className="flex items-center gap-3">
-            <button onClick={() => setTab('medicines')} className={`px-3 py-1.5 rounded ${tab === 'medicines' ? 'bg-primary text-white' : 'border'}`}>Medicines</button>
-            <button onClick={() => setTab('labtests')} className={`px-3 py-1.5 rounded ${tab === 'labtests' ? 'bg-primary text-white' : 'border'}`}>Lab Tests</button>
-            <button onClick={logout} className="ml-4 text-red-600">Logout</button>
+    <AdminLayout activeTab={tab} setActiveTab={setTab} title={getTitle()}>
+      {tab === 'dashboard' && (
+        <div className="space-y-6">
+          <DashboardStats />
+          <div className="grid md:grid-cols-2 gap-6">
+            <ActivityFeed />
+            {/* We can add another widget here later, e.g., Quick Actions or a Chart */}
+            <div className="bg-white rounded-xl border shadow-sm p-6 flex flex-col justify-center items-center text-center space-y-4">
+              <div className="bg-blue-50 p-4 rounded-full text-4xl">🚀</div>
+              <div>
+                <h3 className="font-bold text-lg">Quick Actions</h3>
+                <p className="text-gray-500 text-sm">Common tasks you can perform</p>
+              </div>
+              <div className="flex flex-wrap gap-2 justify-center w-full">
+                <button onClick={() => setTab('medicines')} className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100">Add Medicine</button>
+                <button onClick={() => setTab('labtests')} className="px-4 py-2 bg-green-50 text-green-600 rounded-lg text-sm font-medium hover:bg-green-100">Add Lab Test</button>
+                <button onClick={() => setTab('projects')} className="px-4 py-2 bg-purple-50 text-purple-600 rounded-lg text-sm font-medium hover:bg-purple-100">New Project</button>
+              </div>
+            </div>
           </div>
         </div>
-      </header>
+      )}
 
-      <main className="max-w-6xl mx-auto px-4 py-6">
-        {tab === 'medicines' ? <MedicineCRUD /> : <LabTestCRUD />}
-      </main>
-    </div>
+      {tab === 'medicines' && <MedicineCRUD />}
+
+      {tab === 'labtests' && <LabTestCRUD />}
+
+      {tab === 'projects' && <ProjectManager />}
+    </AdminLayout>
   );
 };
 

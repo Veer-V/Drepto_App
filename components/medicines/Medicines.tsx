@@ -119,7 +119,10 @@ const Medicines: React.FC<MedicinesProps> = ({ onViewDetails }) => {
     const load = () => {
       try {
         const items = loadMedicines();
-        setAll(items && items.length ? items : DEFAULT_MEDICINES);
+        // If we have items in filtering or data management, we should trust loadMedicines
+        // However, if it returns ONLY the initial seed, we might want to check if that's intended.
+        // For now, let's treat loadMedicines as the Single Source of Truth.
+        setAll(items);
       } catch {
         setAll(DEFAULT_MEDICINES);
       }
